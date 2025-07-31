@@ -1,1 +1,1 @@
-# all-hotel-scrap
+# simple project of javascript
