@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        h2 {
+            color: #333;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .input-group input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .message {
+            margin-top: 15px;
+            color: red;
+            font-weight: bold;
+        }
+        .message.success {
+            color: green;
+        }
+        .link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <div class="input-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Enter your email">
+        </div>
+        <div class="input-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Enter your password">
+        </div>
+        <button onclick="handleLogin()">Login</button>
+        <p id="message" class="message"></p>
+        <div class="link">
+            Don't have an account? <a href="#" onclick="window.open('signup.html', '_self'); return false;">Signup here</a>
+        </div>
+    </div>
+
+    <script>
+        function getMessageElement() {
+            return document.getElementById('message');
+        }
+
+        function clearMessage() {
+            const messageElement = getMessageElement();
+            messageElement.textContent = '';
+            messageElement.className = 'message';
+        }
+
+        function showMessage(text, isSuccess = false) {
+            const messageElement = getMessageElement();
+            messageElement.textContent = text;
+            messageElement.className = isSuccess ? 'message success' : 'message';
+        }
+
+        function handleLogin() {
+            clearMessage();
+            const emailInput = document.getElementById('email').value;
+            const passwordInput = document.getElementById('password').value;
+
+            const storedEmail = localStorage.getItem('userEmail');
+            const storedPassword = localStorage.getItem('userPassword');
+
+            if (emailInput === "" || passwordInput === "") {
+                showMessage("Please enter both email and password to login.");
+                return;
+            }
+
+            if (emailInput === storedEmail && passwordInput === storedPassword) {
+                showMessage("Login successful! Redirecting to dashboard...", true);
+                setTimeout(() => {
+                    window.open("dashboard.html", "_self");
+                }, 1500);
+            } else {
+                showMessage("Invalid email or password. Please try again or signup.");
+            }
+        }
+    </script>
+</body>
+</html>
